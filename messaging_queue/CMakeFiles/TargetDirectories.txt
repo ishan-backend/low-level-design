@@ -1,0 +1,3 @@
+/Users/infra/Desktop/low-level-design/messaging_queue/CMakeFiles/messageQueue.dir
+/Users/infra/Desktop/low-level-design/messaging_queue/CMakeFiles/edit_cache.dir
+/Users/infra/Desktop/low-level-design/messaging_queue/CMakeFiles/rebuild_cache.dir

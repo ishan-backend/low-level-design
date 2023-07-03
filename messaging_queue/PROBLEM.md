@@ -26,7 +26,13 @@ https://www.youtube.com/watch?v=4BEzgPlLKTo
 Java solution: https://github.com/anomaly2104/low-level-design-messaging-queue-pub-sub
 
 Solution formulation:
-- Create Queue.h
+- Create Message.h
 - Create ISubscriber.h, Subscriber.h
 - Create implementations of above interfaces
 - Create ThreadPool interface
+- Create Topic.h and TopicSubscriber.h
+- Create Queue.h
+- Understand relations, make main.cpp and implementations
+
+
+What do all interfaces contain - in a gist?
