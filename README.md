@@ -109,6 +109,7 @@ project_folder/
 ```
 
 * Contents and command meanings in cmake:
+```
 1. cmake_minimum_required(VERSION 3.22): This line sets the minimum required version of CMake for the project. It ensures that the CMake version used to generate build files is at least 3.22.
 
 2. project("Message Queue"): This line sets the name of the project to "Message Queue". The project name will be used in various places, such as in generating build targets.
@@ -120,3 +121,4 @@ project_folder/
 5. list(FILTER src_files EXCLUDE REGEX ".*\\.test\\.cpp$"): This line filters out any source files with the ".test.cpp" suffix from the src_files list. The regular expression ".*\.test\.cpp$" matches files ending with ".test.cpp".
 
 6. add_executable(messageQueue ${src_files}): This line creates an executable target named "messageQueue" using the C++ source files from the src_files list. The add_executable command specifies the executable's name and the source files required to build it.
+```
