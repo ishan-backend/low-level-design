@@ -41,6 +41,26 @@ Functionalities:
 
 ```
 
+```
+Installing Boost:
+
+brew install boost
+
+Location where boost got installed:
+
+brew info boost
+- /opt/homebrew/Cellar/boost/1.82.0_1
+
+Install Microsoft C/C++ Extension on VSCode & then,
+Update CompilerPath, Intellisense mode and Include Path as:
+
+- /opt/homebrew/Cellar/boost/1.82.0_1/include/**
+
+Now you may use in sample_boost.cpp
+
+
+```
+
 
 ## How to install, compile and link the binary with your project in C++
 
@@ -71,3 +91,32 @@ Step 6: Run Your Program
 ./my_program
 
 ```
+
+
+## Installing CMake and usage:
+
+* Run the following command in terminal:
+``` 
+brew install cmake
+```
+
+* In your project folder, create CMakeLists.txt
+```
+project_folder/
+    |- CMakeLists.txt
+    |- main.cpp
+
+```
+
+* Contents and command meanings in cmake:
+1. cmake_minimum_required(VERSION 3.22): This line sets the minimum required version of CMake for the project. It ensures that the CMake version used to generate build files is at least 3.22.
+
+2. project("Message Queue"): This line sets the name of the project to "Message Queue". The project name will be used in various places, such as in generating build targets.
+
+3. set(SRC_DIR "messaging-queue"): This line sets the variable SRC_DIR to the directory name "messaging-queue". This variable is later used to define the source file glob pattern.
+
+4. file(GLOB src_files ${SRC_DIR}/*.cpp): This line uses the file command with the GLOB subcommand to create a list of C++ source files in the SRC_DIR directory. The variable src_files will hold the list of matched source files.
+
+5. list(FILTER src_files EXCLUDE REGEX ".*\\.test\\.cpp$"): This line filters out any source files with the ".test.cpp" suffix from the src_files list. The regular expression ".*\.test\.cpp$" matches files ending with ".test.cpp".
+
+6. add_executable(messageQueue ${src_files}): This line creates an executable target named "messageQueue" using the C++ source files from the src_files list. The add_executable command specifies the executable's name and the source files required to build it.
