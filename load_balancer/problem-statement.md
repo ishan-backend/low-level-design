@@ -10,7 +10,9 @@ Design a load balancer, where client comes and ask factory to give certain kind 
 round-robin,
 least connection,
 least response time, etc.
-Read - https://medium.com/@leonardo5621_66451/building-a-load-balancer-in-go-1c68131dc0ef#:~:text=A%20load%20balancer%20is%20a,strategies%20to%20handle%20inbound%20requests.
+Read - 
+  * [Article 1](https://medium.com/@leonardo5621_66451/building-a-load-balancer-in-go-1c68131dc0ef#:~:text=A%20load%20balancer%20is%20a,strategies%20to%20handle%20inbound%20requests.)
+  * [Article2](https://dev.to/bmf_san/implement-a-load-balancer-in-golang-8gj#:~:text=There%20are%20different%20types%20of,least%20number%20of%20unprocessed%20requests.)
 
 * Algorithms can be mentioned by client.
 
@@ -19,8 +21,11 @@ Read - https://medium.com/@leonardo5621_66451/building-a-load-balancer-in-go-1c6
 
 **Approach :**
 
-* What happens in load balancer? -> does not manipulate data, reroutes the request.
-  * For e.g. Input (Request) with route -> Node (server to be routed to)
-
-* 
+* LB is an application of reverseProxy, using existing wheel.
+* Thinking about backend server, what responsibility individual backend server has.
+* What things would be configurable?
+  * FE would pass strategy to use for a particular request in headers
+  * Max attempts to connect to a backend host should be configurable.
+  * Increasing backend servers can be optional
+* Server Pool :- 
 
