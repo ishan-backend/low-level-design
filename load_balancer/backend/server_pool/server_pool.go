@@ -71,7 +71,7 @@ func HealthCheck(ctx context.Context, sp IServerPool) {
 			}
 		case alive := <-aliveChanel:
 			{
-				b.SetActive()
+				b.SetActive(alive)
 				if !alive {
 					status = "down"
 				}

@@ -1,4 +1,4 @@
-package load_balancer
+package main
 
 import (
 	"context"
@@ -46,8 +46,37 @@ func main() {
 
 		rp := httputil.NewSingleHostReverseProxy(u)
 		backendServer := backend.NewBackend(u, rp)
-		//// Handling scenarios where
-		//rp.ErrorHandler =
+		rp.ErrorHandler = func(writer http.ResponseWriter, request *http.Request, e error) {
+			logger.Error("error handling the request",
+				zap.String("host", u.Host),
+				zap.Error(e),
+			)
+			backendServer.SetActive(false)
+
+			if !frontend.AllowRetry(request) {
+				utils.Logger.Info(
+					"Max retry attempts reached, terminating",
+					zap.String("address", request.RemoteAddr),
+					zap.String("path", request.URL.Path),
+				)
+				http.Error(writer, "Service not available", http.StatusServiceUnavailable)
+				return
+			}
+
+			logger.Info(
+				"Attempting retry",
+				zap.String("address", request.RemoteAddr),
+				zap.String("URL", request.URL.Path),
+				zap.Bool("retry", true),
+			)
+
+			loadBalancer.Serve(
+				writer,
+				request.WithContext(
+					context.WithValue(request.Context(), frontend.RETRY_ATTEMPTED, true),
+				),
+			)
+		}
 
 		serverPool.AddBackend(backendServer)
 	}

@@ -13,7 +13,7 @@ import (
 
 type Backend interface {
 	GetIsAlive() bool
-	SetActive()
+	SetActive(bool)
 	GetActiveConnections() int
 	GetUrl() *url.URL
 	Serve(http.ResponseWriter, *http.Request)
@@ -46,9 +46,9 @@ func (b *backend) GetIsAlive() bool {
 	return isAlive
 }
 
-func (b *backend) SetActive() {
+func (b *backend) SetActive(val bool) {
 	b.mux.Lock()
-	b.alive = true
+	b.alive = val
 	b.mux.Unlock()
 }
 

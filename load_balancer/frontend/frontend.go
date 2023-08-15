@@ -27,3 +27,14 @@ func (l *loadBalancer) Serve(w http.ResponseWriter, r *http.Request) {
 func NewLoadBalancer(serverPool server_pool.IServerPool) ILoadBalancer {
 	return &loadBalancer{serverPool: serverPool}
 }
+
+const (
+	RETRY_ATTEMPTED int = 0
+)
+
+func AllowRetry(r *http.Request) bool {
+	if _, ok := r.Context().Value(RETRY_ATTEMPTED).(bool); ok {
+		return false
+	}
+	return true
+}

@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Uber Technologies, Inc.
+// Copyright (c) 2020 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,18 +18,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-package internal
+package atomic
 
-import "go.uber.org/zap/zapcore"
+import "sync/atomic"
 
-// LeveledEnabler is an interface satisfied by LevelEnablers that are able to
-// report their own level.
-//
-// This interface is defined to use more conveniently in tests and non-zapcore
-// packages.
-// This cannot be imported from zapcore because of the cyclic dependency.
-type LeveledEnabler interface {
-	zapcore.LevelEnabler
+// Value shadows the type of the same name from sync/atomic
+// https://godoc.org/sync/atomic#Value
+type Value struct {
+	atomic.Value
 
-	Level() zapcore.Level
+	_ nocmp // disallow non-atomic comparison
 }

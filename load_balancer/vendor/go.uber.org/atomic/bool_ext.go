@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Uber Technologies, Inc.
+// Copyright (c) 2020 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,18 +18,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-package internal
+package atomic
 
-import "go.uber.org/zap/zapcore"
+import (
+	"strconv"
+)
 
-// LeveledEnabler is an interface satisfied by LevelEnablers that are able to
-// report their own level.
-//
-// This interface is defined to use more conveniently in tests and non-zapcore
-// packages.
-// This cannot be imported from zapcore because of the cyclic dependency.
-type LeveledEnabler interface {
-	zapcore.LevelEnabler
+//go:generate bin/gen-atomicwrapper -name=Bool -type=bool -wrapped=Uint32 -pack=boolToInt -unpack=truthy -cas -swap -json -file=bool.go
 
-	Level() zapcore.Level
+func truthy(n uint32) bool {
+	return n == 1
+}
+
+func boolToInt(b bool) uint32 {
+	if b {
+		return 1
+	}
+	return 0
+}
+
+// Toggle atomically negates the Boolean and returns the previous value.
+func (b *Bool) Toggle() bool {
+	for {
+		old := b.Load()
+		if b.CAS(old, !old) {
+			return old
+		}
+	}
+}
+
+// String encodes the wrapped value as a string.
+func (b *Bool) String() string {
+	return strconv.FormatBool(b.Load())
 }
