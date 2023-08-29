@@ -28,4 +28,6 @@ Read -
   * Max attempts to connect to a backend host should be configurable.
   * Increasing backend servers can be optional
 * Server Pool :- 
+* Single Host Reverse Proxy (via stdlib): https://fideloper.com/golang-single-host-reverse-proxy
+* To make your own reverse proxy (with load balancing): https://fideloper.com/go-http
 
