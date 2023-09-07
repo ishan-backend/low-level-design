@@ -41,4 +41,8 @@
 * Create service layer
 * Identify special design that fits here - strategy design, state design, etc.
 
+**Source for DB schema Design** :-
+* But designing schemas for college portal, bookmyshow, food ordering app, e-commerce app, stackoverflow etc might be very helpful to you
+* Did you design your classes, in a manner that they directly mapped into DB schema - Yes, I created proper DAO interfaces and correspoding implmentations. Tips - Always try to create DAO classes.
+
 **TODO: Make a list of Machine Coding vs type vs design patterns and important points to keep in mind while coding**
