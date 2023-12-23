@@ -69,6 +69,7 @@ func (s *ServiceServer) ServerSideStream(req *servicepb.ServerSideRequest, strea
 	for {
 		select {
 		case <-stream.Context().Done():
+			fmt.Println("cancel context received!!!")
 			return status.Error(codes.Canceled, "Stream has ended")
 		default:
 			time.Sleep(1 * time.Second)
