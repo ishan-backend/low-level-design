@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 type Details struct {
@@ -23,6 +24,21 @@ func NewServer() *Server {
 	return &Server{
 		conns: make(map[*websocket.Conn]*Details),
 	}
+}
+
+func (s *Server) handleRelayDocumentUploadPercentage(ws *websocket.Conn) {
+	fmt.Println("new incoming connection from client: ", ws.RemoteAddr())
+	perc := 0
+	for {
+		payload := fmt.Sprintf("percentage uploaded: %d", perc)
+		ws.Write([]byte(payload)) // payload write starts happening as soon as websocket connection is opened, if event data is not published on web, data is lost
+		time.Sleep(time.Millisecond * 100)
+		if perc == 100 {
+			break
+		}
+		perc++
+	}
+	fmt.Println("closing connection from client: ", ws.RemoteAddr())
 }
 
 func (s *Server) handleChatWS(ws *websocket.Conn) {
@@ -81,5 +97,6 @@ func (s *Server) BroadCast(b []byte) {
 func main() {
 	server := NewServer()
 	http.Handle("/ws/chat", websocket.Handler(server.handleChatWS))
+	http.Handle("/ws/document-upload-perc", websocket.Handler(server.handleRelayDocumentUploadPercentage))
 	http.ListenAndServe(":3000", nil)
 }
