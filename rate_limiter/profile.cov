@@ -1,0 +1,8 @@
+mode: set
+rate_limiter/sliding-window/sliding_window.go:20.58,21.82 1 1
+rate_limiter/sliding-window/sliding_window.go:21.82,27.56 5 1
+rate_limiter/sliding-window/sliding_window.go:38.3,38.37 1 1
+rate_limiter/sliding-window/sliding_window.go:44.3,46.34 3 1
+rate_limiter/sliding-window/sliding_window.go:27.56,36.4 4 1
+rate_limiter/sliding-window/sliding_window.go:38.37,42.4 3 1
+rate_limiter/sliding-window/sliding_window.go:50.64,53.2 1 1
